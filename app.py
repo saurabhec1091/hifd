@@ -97,8 +97,8 @@ def home():
 def inpatient():          
 # loading in the model to predict on the data 
     st.markdown('## According to claim details')
-    scaling = joblib.load('scale.pkl')
-    classifier = joblib.load('inpatient.pkl')
+    scaling = joblib.load('https://github.com/saurabhec1091/hifd/blob/main/Scaler/scale.pkl')
+    classifier = joblib.load('https://github.com/saurabhec1091/hifd/blob/main/PKL%20file/inpatient.pkl')
     
     feat = {'4019': 0 ,'486': 0,'496' : 0,'53081' : 0,'5849' : 0,'5990' : 0,'ChronicCond_Alzheimer' : 0,'ChronicCond_Heartfailure' : 0,
             'ChronicCond_KidneyDisease' : 0,'ChronicCond_Osteoporasis' : 0, 'ChronicCond_rheumatoidarthritis' : 0, 
@@ -109,7 +109,7 @@ def inpatient():
     
     
     
-    X = pd.read_csv('inpatient.csv')    
+    X = pd.read_csv('https://media.githubusercontent.com/media/saurabhec1091/hifd/main/Data/inpatient.csv?token=ALWU2RQCR4UO67QYYU7AGCK7WWTKI')    
     
     st.text("Answer the question below:")
     
@@ -283,7 +283,7 @@ def provider():
             st.error('Error: End date must fall after start date.')
         feat['AdmitForDays'].append((DischargeDt - AdmissionDt).days + 1)   
         
-        X = pd.read_csv('provider.csv')    
+        X = pd.read_csv('https://media.githubusercontent.com/media/saurabhec1091/hifd/main/Data/provider.csv?token=ALWU2RUX4DWXFS7JQBOHNUS7WWTOQ')    
     
         #InscClaimAmtReimbursed
         feat['InscClaimAmtReimbursed'].append(st.slider("InscClaimAmtReimbursed for claim number {}".format(i), int(round(X.InscClaimAmtReimbursed.min())), int(round(X.InscClaimAmtReimbursed.max()))))    
@@ -395,11 +395,11 @@ def provider():
             # MinMaxScaler
             
             from sklearn.preprocessing import MinMaxScaler
-            scaler = joblib.load('scaler_m.pkl')
+            scaler = joblib.load('https://github.com/saurabhec1091/hifd/blob/main/Scaler/scaler_m.pkl')
             X = pd.DataFrame(scaler.transform(X),columns=X.columns)
             
             import xgboost
-            classifier = joblib.load('xgb_model.pkl')
+            classifier = joblib.load('https://github.com/saurabhec1091/hifd/blob/main/PKL%20file/xgb_model.pkl')
             result =  (classifier.predict_proba(X)[:,1]>0.5).astype(bool)
             if result == 1.0:
                 st.write('**This is a Fraud Provider.**')
@@ -548,7 +548,7 @@ def csv():
         
         # load the model from disk
         
-        loaded_model = joblib.load('xgb_model.pkl')
+        loaded_model = joblib.load('https://github.com/saurabhec1091/hifd/blob/main/PKL%20file/xgb_model.pkl')
         result = (loaded_model.predict_proba(X)[:,1]>0.5).astype(bool)
         Test['Fraud'] = result
         st.dataframe(Test.replace({'Fraud': {0: 'No', 1: 'Yes'}}))
@@ -653,11 +653,11 @@ from streamlit_pandas_profiling import st_profile_report
 
 
 def analysis():
-    Train = pd.read_csv('train_data.csv')
-    Train_Beneficiarydata = pd.read_csv('Train_Beneficiarydata.csv')
-    Train_Inpatientdata= pd.read_csv('Train_Inpatientdata.csv')
-    Train_Outpatientdata = pd.read_csv('Train_Outpatientdata.csv')
-    Train_ProviderWithPatientDetailsdata= pd.read_csv('Train_ProviderWithPatientDetailsdata.csv')
+    Train = pd.read_csv('https://media.githubusercontent.com/media/saurabhec1091/hifd/main/Data/train_data.csv?token=ALWU2RX3XIS5JPIEYXMRID27WWTQQ')
+    Train_Beneficiarydata = pd.read_csv('https://media.githubusercontent.com/media/saurabhec1091/hifd/main/Data/Train_Beneficiarydata.csv?token=ALWU2RT3HD572E62NSACPHS7WWTBO')
+    Train_Inpatientdata= pd.read_csv('https://media.githubusercontent.com/media/saurabhec1091/hifd/main/Data/Train_Inpatientdata.csv?token=ALWU2RQIZZEHS6SGVAI5HTK7WWS4Y')
+    Train_Outpatientdata = pd.read_csv('https://media.githubusercontent.com/media/saurabhec1091/hifd/main/Data/Train_Outpatientdata.csv?token=ALWU2RW47DUT6YXB6LZ7ZDK7WWTFE')
+    Train_ProviderWithPatientDetailsdata= pd.read_csv('https://media.githubusercontent.com/media/saurabhec1091/hifd/main/Data/Train_ProviderWithPatientDetailsdata.csv?token=ALWU2RUEH57VL7IS4DVBKI27WWTLG')
 
     
     st.markdown('## Some Facts and analysis')
