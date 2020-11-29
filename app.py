@@ -538,7 +538,7 @@ def provider():
             
             import xgboost
             with open(f'xgb_model.pkl', 'rb') as a:
-                scaler = joblib.load(a)
+                classifier = joblib.load(a)
             result =  (classifier.predict_proba(X)[:,1]>0.5).astype(bool)
             if result == 1.0:
                 st.write('**This is a Fraud Provider.**')
@@ -565,6 +565,8 @@ def check_hashes(password,hashed_text):
 
 # DB Management
 import sqlite3 
+with open(f'data.db', 'rb') as s:
+    conn = sqlite3.connect(s)
 conn = sqlite3.connect('data.db')
 c = conn.cursor()
 
