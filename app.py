@@ -533,12 +533,12 @@ def provider():
             
             from sklearn.preprocessing import MinMaxScaler
             with open(f'scaler_m.pkl', 'rb') as f:
-                scaler = pickle.load(f)
+                scaler = joblib.load(f)
             X = pd.DataFrame(scaler.transform(X),columns=X.columns)
             
             import xgboost
             with open(f'xgb_model.pkl', 'rb') as a:
-                classifier = pickle.load(a)
+                scaler = joblib.load(a)
             result =  (classifier.predict_proba(X)[:,1]>0.5).astype(bool)
             if result == 1.0:
                 st.write('**This is a Fraud Provider.**')
