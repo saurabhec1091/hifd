@@ -565,8 +565,6 @@ def check_hashes(password,hashed_text):
 
 # DB Management
 import sqlite3 
-with open(f'data.db', 'rb') as s:
-    conn = sqlite3.connect(s)
 conn = sqlite3.connect('data.db')
 c = conn.cursor()
 
