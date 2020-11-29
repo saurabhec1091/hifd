@@ -14,7 +14,6 @@ import streamlit.components.v1 as components
 from PIL import Image
 from io import BytesIO
 import pickle
-import requests
 img= Image.open('logo.jpeg')  
 st.beta_set_page_config(page_title='Health Insurance ',page_icon=img, layout = 'wide', initial_sidebar_state = 'auto')
 
@@ -533,17 +532,11 @@ def provider():
             # MinMaxScaler
             
             from sklearn.preprocessing import MinMaxScaler
-            scaler_link = 'https://github.com/saurabhec1091/hifd/blob/main/Scaler/scaler_m.pkl'
-            with open('./blob/main/Scaler/scaler_m.pkl', 'rb') as f_in:
-                scaler = pickle.load(f_in)
-                f_in.close()
+            scaler = pickle.load(open('scaler_m.pkl','rb'))
             X = pd.DataFrame(scaler.transform(X),columns=X.columns)
             
             import xgboost
-            classifier_link = 'https://github.com/saurabhec1091/hifd/blob/main/PKL%20file/xgb_model.pkl'
-            with open('./blob/main/PKL%20file/xgb_model.pkl', 'rb') as f_in:
-                classifier = pickle.load(f_in)
-                f_in.close()
+            classifier = pickle.load(open('xgb_model.pkl','rb'))
             result =  (classifier.predict_proba(X)[:,1]>0.5).astype(bool)
             if result == 1.0:
                 st.write('**This is a Fraud Provider.**')
